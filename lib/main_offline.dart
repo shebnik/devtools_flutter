@@ -1,6 +1,7 @@
-import 'package:devtools_flutter/services/student_service.dart';
 import 'package:devtools_flutter/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
+
+import 'services/offline_student_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: FutureBuilder(
-          future: StudentService.fetchStudents(),
+          future: OfflineStudentService.fetchStudents(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return HomePage(students: snapshot.data);
