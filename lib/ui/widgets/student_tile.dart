@@ -10,7 +10,7 @@ class StudentTile extends StatelessWidget {
   }) : super(key: key);
 
   final Student student;
-  final void Function(bool?, Student)? activistChanged;
+  final void Function(Student)? activistChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class StudentTile extends StatelessWidget {
           ? null
           : Checkbox(
               value: student.isActivist,
-              onChanged: (value) => activistChanged!(value, student),
+              onChanged: (value) => activistChanged!(student),
             ),
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 
 import '../models/student.dart';
@@ -19,5 +20,11 @@ class StudentService {
       print('[StudentService] fetch students error - $e');
       return [];
     }
+  }
+
+  static Future<List<Student>> loadStudents() async {
+    final json = await rootBundle.loadString('assets/json/students.json');
+    final data = jsonDecode(json) as List<dynamic>;
+    return data.map((e) => Student.fromMap(e)).toList();
   }
 }
