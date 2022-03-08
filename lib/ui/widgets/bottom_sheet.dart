@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:devtools_flutter/models/student.dart';
 import 'package:devtools_flutter/ui/widgets/student_tile.dart';
 
-class AppBottomSheet extends StatelessWidget {
+class AppBottomSheet extends StatefulWidget {
   const AppBottomSheet({
     Key? key,
     required this.student,
@@ -14,6 +16,27 @@ class AppBottomSheet extends StatelessWidget {
   final void Function() updateStudent;
 
   @override
+  State<AppBottomSheet> createState() => _AppBottomSheetState();
+}
+
+class _AppBottomSheetState extends State<AppBottomSheet> {
+  late StreamController streamController;
+  late StreamSubscription streamSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    streamController = StreamController();
+    streamSubscription = streamController.stream.listen((event) {});
+    streamController.add("");
+    streamController.add("");
+    streamController.add("");
+    streamController.add("");
+    streamController.add("");
+    streamController.add("");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
@@ -22,17 +45,19 @@ class AppBottomSheet extends StatelessWidget {
           const SizedBox(height: 16),
           Center(
             child: Text(
-              !student.isActivist ? 'Добавить активиста' : 'Удалить активиста',
+              !widget.student.isActivist
+                  ? 'Добавить активиста'
+                  : 'Удалить активиста',
               style: Theme.of(context).textTheme.headline6,
             ),
           ),
           const SizedBox(height: 16),
-          StudentTile(student: student),
+          StudentTile(student: widget.student),
           const SizedBox(height: 16),
           ElevatedButton(
             child: const Text("Подтвердить"),
             onPressed: () {
-              updateStudent();
+              widget.updateStudent();
               Navigator.pop(context);
             },
           ),
